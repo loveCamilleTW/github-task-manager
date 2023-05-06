@@ -1,5 +1,6 @@
 import { LandingPage, CallbackPage, TaskListPage } from "./views";
 import { Navigate, useRoutes } from "react-router-dom";
+import "./App.css";
 
 function App() {
   const routes = useRoutes([
