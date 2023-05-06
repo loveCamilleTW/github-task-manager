@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 
 function App() {
   const handleClick = () => {
-    const clientId = "2686b078ae4341574f65";
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
     const scope = "repo";
 
     const url = "https://github.com/login/oauth/authorize";
