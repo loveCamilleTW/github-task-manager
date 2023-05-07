@@ -13,16 +13,16 @@ export function useAccessToken(code: string) {
   });
 }
 
-export function useIssues(accessToken: string) {
+export function useIssues(accessToken: string, state: string) {
   const queryFn = () =>
-    axios.get("https://api.github.com/issues", {
+    axios.get(`https://api.github.com/issues?state=${state}`, {
       headers: {
         Authorization: `token ${accessToken}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
 
-  return useQuery(["issues", accessToken], queryFn, {
+  return useQuery(["issues", state, accessToken], queryFn, {
     enabled: !!accessToken,
     select: (res) => res.data,
     refetchOnWindowFocus: false,
