@@ -40,7 +40,7 @@ export function GitHubTask(props: GitHubTaskProps) {
         </Link>{" "}
         <Link
           component={RouterLink}
-          to={`/tasks/${user.login}/${repo.name}/${number}`}
+          to={`/tasks/${repo.owner.login}/${repo.name}/${number}`}
           underline="none"
           sx={{ color: "#000", "&:hover": { color: "#0969da" } }}
         >
