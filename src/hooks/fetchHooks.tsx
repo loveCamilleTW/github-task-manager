@@ -23,7 +23,31 @@ export function useIssues(accessToken: string, state: string) {
     });
 
   return useQuery(["issues", state, accessToken], queryFn, {
-    enabled: !!accessToken,
+    enabled: !!accessToken && !!state,
+    select: (res) => res.data,
+    refetchOnWindowFocus: false,
+  });
+}
+
+export function useIssue(
+  accessToken: string,
+  owner: string | undefined,
+  repo: string | undefined,
+  taskId: string | undefined
+) {
+  const queryFn = () =>
+    axios.get(
+      `https://api.github.com/repos/${owner}/${repo}/issues/${taskId}`,
+      {
+        headers: {
+          Authorization: `token ${accessToken}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      }
+    );
+
+  return useQuery(["issue", owner, repo, taskId, accessToken], queryFn, {
+    enabled: !!accessToken && !!owner && !!repo && !!taskId && !!accessToken,
     select: (res) => res.data,
     refetchOnWindowFocus: false,
   });

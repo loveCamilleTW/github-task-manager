@@ -18,7 +18,7 @@ export function CallbackPage() {
     if (accessToken) {
       console.log("accessToken =", accessToken);
       localStorage.setItem("accessToken", accessToken);
-      navigate("/issues");
+      navigate("/tasks");
     }
   });
 

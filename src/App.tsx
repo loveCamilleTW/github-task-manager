@@ -1,5 +1,5 @@
-import { LandingPage, CallbackPage, TaskListPage } from "./views";
-import { Navigate, useRoutes } from "react-router-dom";
+import { LandingPage, CallbackPage, TaskListPage, TaskInfoPage } from "./views";
+import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -13,12 +13,22 @@ function App() {
       element: <CallbackPage />,
     },
     {
-      path: "/issues",
+      path: "/tasks",
       element: (
         <RequireAccessToken>
-          <TaskListPage />
+          <Outlet />
         </RequireAccessToken>
       ),
+      children: [
+        {
+          path: "",
+          element: <TaskListPage />,
+        },
+        {
+          path: ":owner/:repo/:taskId",
+          element: <TaskInfoPage />,
+        },
+      ],
     },
   ]);
 

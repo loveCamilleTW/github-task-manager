@@ -1,4 +1,5 @@
 import { Box, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import { TaskStateIcon, CreateDateInfo } from "./";
 
 interface GitHubTaskProps {
@@ -38,9 +39,8 @@ export function GitHubTask(props: GitHubTaskProps) {
           {repo.full_name}
         </Link>{" "}
         <Link
-          href={"#"}
-          target="_blank"
-          rel="noopener"
+          component={RouterLink}
+          to={`/tasks/${user.login}/${repo.name}/${number}`}
           underline="none"
           sx={{ color: "#000", "&:hover": { color: "#0969da" } }}
         >
