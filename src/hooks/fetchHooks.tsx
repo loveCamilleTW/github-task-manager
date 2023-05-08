@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const SERVER_URL = "http://localhost:5000";
+const GITHUBAPI_URL = "https://api.github.com";
 
 export function useAccessToken(code: string) {
   const queryFn = () => axios.get(`${SERVER_URL}/authenticate?code=${code}`);
@@ -13,9 +14,25 @@ export function useAccessToken(code: string) {
   });
 }
 
+export function useUser(accessToken: string) {
+  const queryFn = () =>
+    axios.get(`${GITHUBAPI_URL}/user`, {
+      headers: {
+        Authorization: `token ${accessToken}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+
+  return useQuery(["user", accessToken], queryFn, {
+    enabled: !!accessToken,
+    select: (res) => res.data,
+    refetchOnWindowFocus: false,
+  });
+}
+
 export function useIssues(accessToken: string, state: string) {
   const queryFn = () =>
-    axios.get(`https://api.github.com/issues?state=${state}`, {
+    axios.get(`${GITHUBAPI_URL}/issues?state=${state}`, {
       headers: {
         Authorization: `token ${accessToken}`,
         "X-GitHub-Api-Version": "2022-11-28",
@@ -36,15 +53,12 @@ export function useIssue(
   taskId: string | undefined
 ) {
   const queryFn = () =>
-    axios.get(
-      `https://api.github.com/repos/${owner}/${repo}/issues/${taskId}`,
-      {
-        headers: {
-          Authorization: `token ${accessToken}`,
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-      }
-    );
+    axios.get(`${GITHUBAPI_URL}/repos/${owner}/${repo}/issues/${taskId}`, {
+      headers: {
+        Authorization: `token ${accessToken}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
 
   return useQuery(["issue", owner, repo, taskId, accessToken], queryFn, {
     enabled: !!accessToken && !!owner && !!repo && !!taskId && !!accessToken,

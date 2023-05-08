@@ -1,4 +1,10 @@
-import { LandingPage, CallbackPage, TaskListPage, TaskInfoPage } from "./views";
+import {
+  LandingPage,
+  CallbackPage,
+  TaskListPage,
+  TaskInfoPage,
+  GitHubTaskManagerLayout,
+} from "./views";
 import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import "./App.css";
 
@@ -16,7 +22,9 @@ function App() {
       path: "/tasks",
       element: (
         <RequireAccessToken>
-          <Outlet />
+          <GitHubTaskManagerLayout>
+            <Outlet />
+          </GitHubTaskManagerLayout>
         </RequireAccessToken>
       ),
       children: [
