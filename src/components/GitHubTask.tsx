@@ -1,21 +1,39 @@
+import { Box, Link } from "@mui/material";
+import { TaskStateIcon, CreateDateInfo } from "./";
+
 interface GitHubTaskProps {
   issue: any;
 }
 
 export function GitHubTask(props: GitHubTaskProps) {
   const { issue } = props;
-  console.log(issue.repository);
-  console.log(issue.repository.full_name);
-  const repoName = issue.repository.full_name;
-  const issueTitle = issue.title;
-  const issueBody = issue.body;
+
+  const {
+    state,
+    user,
+    repository: repo,
+    title,
+    body,
+    created_at,
+    number,
+  } = issue;
 
   return (
-    <>
-      <h3>
-        {repoName}/{issueTitle}
-      </h3>
-      <p>{issueBody}</p>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
+      <TaskStateIcon state={state} />
+      <Link href={repo.html_url} target="_blank" rel="noopener">
+        {repo.full_name}
+      </Link>
+      <Link>{title}</Link>
+
+      <span>
+        {`#${number}`} <CreateDateInfo createDate={new Date(created_at)} /> by{" "}
+        {user.login}
+      </span>
+    </Box>
   );
 }

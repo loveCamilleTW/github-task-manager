@@ -25,7 +25,7 @@ export function TaskListPage() {
     <GitHubTask key={issue.id} issue={issue} />
   ));
 
-  const handleChange = (event: React.SyntheticEvent, newValue: IssueState) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: IssueState) => {
     setValue(newValue);
   };
 
