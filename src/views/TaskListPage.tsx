@@ -30,8 +30,8 @@ export function TaskListPage() {
   };
 
   return (
-    <>
-      <Box sx={{ width: "100%" }}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ width: "60%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -45,6 +45,6 @@ export function TaskListPage() {
         </Box>
         <Box>{tasks}</Box>
       </Box>
-    </>
+    </Box>
   );
 }
