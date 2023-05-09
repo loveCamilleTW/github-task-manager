@@ -17,13 +17,9 @@ export function TaskListPage() {
   const accessToken = localStorage.getItem("accessToken") as string;
   const { data: issues } = useIssues(accessToken, issueState);
 
-  if (!issues || issues.length === 0) {
-    return <h2>No tasks</h2>;
-  }
-
-  const tasks = issues.map((issue: any) => (
-    <GitHubTask key={issue.id} issue={issue} />
-  ));
+  const tasks = issues
+    ? issues.map((issue: any) => <GitHubTask key={issue.id} issue={issue} />)
+    : null;
 
   const handleChange = (_event: React.SyntheticEvent, newValue: IssueState) => {
     setValue(newValue);
