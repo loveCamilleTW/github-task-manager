@@ -80,7 +80,7 @@ export function GitHubTaskManagerLayout(props: GitHubTaskManagerLayout) {
                 overflow: "visible",
                 filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                 mt: 1.5,
-                color: "#000",
+                color: "#656d76",
                 "& .MuiAvatar-root": {
                   width: 32,
                   height: 32,
@@ -105,19 +105,24 @@ export function GitHubTaskManagerLayout(props: GitHubTaskManagerLayout) {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
-              <p>
+              <Typography variant="body2">
                 {`Signed in as `}
-                <strong>{user.login}</strong>
-              </p>
+                <Typography sx={{ fontStyle: "bold", color: "#000" }}>
+                  {user.login}
+                </Typography>
+              </Typography>
             </MenuItem>
 
             <Divider />
 
-            <MenuItem onClick={logout}>
+            <MenuItem
+              onClick={logout}
+              sx={{ alignItems: "center", justifyContent: "center" }}
+            >
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
-              Logout
+              <Typography>Logout</Typography>
             </MenuItem>
           </Menu>
         </Toolbar>
