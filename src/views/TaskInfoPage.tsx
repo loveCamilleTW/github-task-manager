@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Avatar } from "@mui/material";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useIssue } from "../hooks";
+import { CreateDateInfo, IssueStateChip } from "../components";
 
 export function TaskInfoPage() {
   const accessToken = localStorage.getItem("accessToken") as string;
@@ -9,6 +10,8 @@ export function TaskInfoPage() {
   const { data: issue } = useIssue(accessToken, owner, repo, taskId);
 
   if (!issue) return null;
+
+  const { user, created_at } = issue;
 
   return (
     <Box
@@ -25,6 +28,23 @@ export function TaskInfoPage() {
             justifyContent: "center",
           }}
         >
+          <Box
+            component="header"
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "0.5rem",
+            }}
+          >
+            <IssueStateChip state={issue.state} />
+            <Box component="div">
+              <CreateDateInfo createDate={new Date(created_at)} />
+            </Box>
+            by
+            <Avatar src={user.avatar_url} />
+            {user.login}
+            {issue.author_association}
+          </Box>
           <Typography variant="h1">{issue.title}</Typography>
           <Box>
             <ReactMarkdown children={issue.body} />

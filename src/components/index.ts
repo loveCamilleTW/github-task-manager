@@ -1,3 +1,4 @@
 export * from "./GitHubTask";
-export * from "./TaskStateIcon.tsx";
-export * from "./CreateDateInfo.tsx";
+export * from "./TaskStateIcon";
+export * from "./CreateDateInfo";
+export * from "./IssueStateChip";
